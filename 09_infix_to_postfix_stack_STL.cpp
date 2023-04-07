@@ -24,15 +24,15 @@ bool isOperator (char op)
 
 bool isOperand (char op)
 {
-    if( op >= 'a' && op <= 'z' || op >= 'A' && op <= 'Z' || op >='0' && op <='9')
+    if( op >= 'a' && op <= 'z' || op >= 'A' && op <= 'Z' || op >='1' && op <='9')
         return true;
     else
         return false;
 }
 
-string InfixToPostfix (stack <char> st, string infix) {
+string InfixToPostfix (string infix) {
+    stack <char> st;
     string postfix = "";
-
     for (int i = 0; i < infix.length(); i++) {
         if (isOperand(infix[i])) 
         {
@@ -74,16 +74,9 @@ string InfixToPostfix (stack <char> st, string infix) {
 
 int main()
 {
-    string infix,postfix,prefix;
-    stack <char> Stack;
+    string infix,postfix;
     cout<<"Enter Infix Exp : ";
     getline(cin,infix);
-
-    postfix = InfixToPostfix(Stack,infix);
+    postfix = InfixToPostfix(infix);
     cout<<"Postfix : "<<postfix<<endl;
-
-    for(int i = postfix.length() - 1; i>=0 ; i--)
-        prefix+=postfix.at(i);
-
-    cout<<"Prefix  : "<<prefix<<endl;
 }

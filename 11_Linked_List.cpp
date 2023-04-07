@@ -85,6 +85,55 @@ void delete_node (node* &head, int key){
     delete toDelete;
 }
 
+node* reverse (node* &head){
+    node* prevPtr = NULL;
+    node* currPtr = head;
+    node* nextPtr;
+
+    while (currPtr!=NULL){
+        nextPtr = currPtr->next;
+        currPtr->next = prevPtr;
+
+        prevPtr = currPtr;
+        currPtr = nextPtr;
+    }
+
+    // Returning PrevPtr because it is new Head of Linked List
+    return prevPtr;
+}
+
+node* recurse_Reverse (node* &head){
+    if (head == NULL || head->next == NULL){
+        return head;
+    }
+    node* newhead = recurse_Reverse(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return newhead;
+}
+
+node* reverseK (node* &head, int k){
+    node* prevPtr = NULL;
+    node* currPtr = head;
+    node* nextPtr;
+    int count = 0;
+    while (currPtr != NULL && count < k){
+        nextPtr = currPtr->next;
+        currPtr->next = prevPtr;
+
+        prevPtr = currPtr;
+        currPtr = nextPtr;
+        
+        count++;
+    }
+
+    if (nextPtr != NULL){
+        head->next = reverseK(nextPtr,k);
+    }
+
+    return prevPtr;
+}
+
 void display (node* &head){
     node* temp = head;
     if (head == NULL){
@@ -101,14 +150,23 @@ void display (node* &head){
 
 int main(){
     system("clear");
-    node* head;
+    node* head = NULL;
     insert_at_tail(head,5);
     insert_at_tail(head,6);
     insert_at_head(head,4);
-    search_node(head,7);
-    delete_at_head(head);
-    delete_node(head,6);
-    delete_at_head(head);
-    delete_at_head(head);
+    insert_at_head(head,3);
+    insert_at_head(head,2);
+    // search_node(head,7);
+    // delete_at_head(head);
+    // delete_node(head,6);
+    // delete_at_head(head);
+    // delete_at_head(head);
+    cout << "Before Reversing : ";
     display(head);
+    // node* newList = reverse(head);
+    // node* newListRecursive = recurse_Reverse(head);
+    int k = 2;
+    node* newListK = reverseK(head,k);
+    cout << "After Reversing "<< k <<" Nodes : ";
+    display(newListK);
 }
