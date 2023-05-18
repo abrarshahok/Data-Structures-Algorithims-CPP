@@ -14,7 +14,7 @@ int precedence(char c)
         return -1;
 }
 
-bool isOperator (char op)
+bool isOperator(char op)
 {
     if (op == '^' || op == '*' || op == '/' || op == '+' || op == '-')
         return true;
@@ -22,41 +22,44 @@ bool isOperator (char op)
         return false;
 }
 
-bool isOperand (char op)
+bool isOperand(char op)
 {
-    if( op >= 'a' && op <= 'z' || op >= 'A' && op <= 'Z' || op >='1' && op <='9')
+    if (op >= 'a' && op <= 'z' || op >= 'A' && op <= 'Z' || op >= '1' && op <= '9')
         return true;
     else
         return false;
 }
 
-string InfixToPostfix (string infix) {
-    stack <char> st;
+string InfixToPostfix(string infix)
+{
+    stack<char> st;
     string postfix = "";
-    for (int i = 0; i < infix.length(); i++) {
-        if (isOperand(infix[i])) 
+    for (int i = 0; i < infix.length(); i++)
+    {
+        if (isOperand(infix[i]))
         {
             postfix += infix[i];
-        } 
-        
-        else if (infix[i] == '(') 
+        }
+
+        else if (infix[i] == '(')
         {
             st.push(infix[i]);
-        } 
-        
-        else if (infix[i] == ')') 
+        }
+
+        else if (infix[i] == ')')
         {
-            while (st.top() != '(') 
+            while (st.top() != '(')
             {
                 postfix += st.top();
                 st.pop();
             }
             st.pop(); // pop the opening bracket
-        } 
+        }
 
-        else if (isOperator(infix[i])) 
+        else if (isOperator(infix[i]))
         {
-            while (!st.empty() && st.top() != '(' && precedence(infix[i]) <= precedence(st.top())) {
+            while (!st.empty() && st.top() != '(' && precedence(infix[i]) <= precedence(st.top()))
+            {
                 postfix += st.top();
                 st.pop();
             }
@@ -64,7 +67,8 @@ string InfixToPostfix (string infix) {
         }
     }
 
-    while (!st.empty()) {
+    while (!st.empty())
+    {
         postfix += st.top();
         st.pop();
     }
@@ -74,9 +78,9 @@ string InfixToPostfix (string infix) {
 
 int main()
 {
-    string infix,postfix;
-    cout<<"Enter Infix Exp : ";
-    getline(cin,infix);
+    string infix, postfix;
+    cout << "Enter Infix Exp : ";
+    getline(cin, infix);
     postfix = InfixToPostfix(infix);
-    cout<<"Postfix : "<<postfix<<endl;
+    cout << "Postfix : " << postfix << endl;
 }
