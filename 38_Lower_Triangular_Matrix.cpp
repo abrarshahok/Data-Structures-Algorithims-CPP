@@ -40,14 +40,7 @@ public:
         {
             for (int j = 0; j < n; j++)
             {
-                if (i >= j)
-                {
-                    cout << get(i, j) << "\t";
-                }
-                else
-                {
-                    cout << 0 << "\t";
-                }
+                cout << get(i, j) << " ";
             }
             cout << endl;
         }
