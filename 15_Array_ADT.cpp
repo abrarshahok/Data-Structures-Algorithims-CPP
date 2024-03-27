@@ -8,7 +8,7 @@ class ArrayADT
 public:
     int size;
     int length;
-    int *arr;
+    int* arr;
 
     void create_array(int);
     void add_elements(int);
@@ -40,10 +40,10 @@ public:
     void left_rotate();
     void right_rotate();
     void negative_on_left_side();
-    ArrayADT merge(ArrayADT *, ArrayADT *);
-    ArrayADT set_union(ArrayADT *, ArrayADT *);
-    ArrayADT set_intersection(ArrayADT *, ArrayADT *);
-    ArrayADT set_difference(ArrayADT *, ArrayADT *);
+    ArrayADT merge(ArrayADT*, ArrayADT*);
+    ArrayADT set_union(ArrayADT*, ArrayADT*);
+    ArrayADT set_intersection(ArrayADT*, ArrayADT*);
+    ArrayADT set_difference(ArrayADT*, ArrayADT*);
     void display_elements();
 };
 
@@ -179,7 +179,7 @@ int ArrayADT::linear_search(int key)
     return -1;
 }
 
-void swap(int *x, int *y)
+void swap(int* x, int* y)
 {
     int temp = *x;
     *x = *y;
@@ -434,7 +434,7 @@ void ArrayADT::reverse()
 
 void ArrayADT::reverse_using_2nd_Array()
 {
-    int *temp = new int[length];
+    int* temp = new int[length];
 
     // Reverse Copying Method 1
     // for (int i = length - 1; i >= 0; i--)
@@ -499,7 +499,7 @@ void ArrayADT::negative_on_left_side()
     }
 }
 
-ArrayADT ArrayADT::merge(ArrayADT *arr1, ArrayADT *arr2)
+ArrayADT ArrayADT::merge(ArrayADT* arr1, ArrayADT* arr2)
 {
     ArrayADT newArray;
     newArray.length = arr1->length + arr2->length;
@@ -522,7 +522,7 @@ ArrayADT ArrayADT::merge(ArrayADT *arr1, ArrayADT *arr2)
     return newArray;
 }
 
-ArrayADT ArrayADT::set_union(ArrayADT *set1, ArrayADT *set2)
+ArrayADT ArrayADT::set_union(ArrayADT* set1, ArrayADT* set2)
 {
     ArrayADT newArray;
     newArray.length = set1->length + set2->length;
@@ -551,7 +551,7 @@ ArrayADT ArrayADT::set_union(ArrayADT *set1, ArrayADT *set2)
     return newArray;
 }
 
-ArrayADT ArrayADT::set_intersection(ArrayADT *set1, ArrayADT *set2)
+ArrayADT ArrayADT::set_intersection(ArrayADT* set1, ArrayADT* set2)
 {
     ArrayADT newArray;
     newArray.length = set1->length + set2->length;
@@ -571,7 +571,7 @@ ArrayADT ArrayADT::set_intersection(ArrayADT *set1, ArrayADT *set2)
     return newArray;
 }
 
-ArrayADT ArrayADT::set_difference(ArrayADT *set1, ArrayADT *set2)
+ArrayADT ArrayADT::set_difference(ArrayADT* set1, ArrayADT* set2)
 {
     ArrayADT newArray;
     newArray.length = set1->length;
@@ -648,7 +648,6 @@ int main()
     // arr->reverse_using_2nd_Array();
     // arr->left_shift();
     // arr->right_shift();
-    // arr->left_rotate();
     // arr->right_rotate();
     // arr->insert_element_in_sorted_array(3);
     // arr->insert_element_in_sorted_array(7);
@@ -662,14 +661,13 @@ int main()
     // arr2->add_elements(n);
     // arr3 = arr3.merge(arr1, arr2);
     // arr3.display_elements();
-    ArrayADT *set1 = new ArrayADT();
-    ArrayADT *set2 = new ArrayADT();
+    ArrayADT* set1 = new ArrayADT();
+    ArrayADT* set2 = new ArrayADT();
     ArrayADT set3;
     set1->create_array(size);
     set2->create_array(size);
     set1->add_elements(n);
     set2->add_elements(n);
-
     set3 = set3.set_difference(set1, set2);
     set3.display_elements();
 }
