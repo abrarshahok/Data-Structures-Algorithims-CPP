@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 
 // Write a Recursive Function to find sum of First N Natural Numbers
