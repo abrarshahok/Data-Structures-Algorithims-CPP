@@ -4,7 +4,7 @@ using namespace std;
 class Matrix
 {
 private:
-    int *A;
+    int* A;
     int n;
 
 public:
