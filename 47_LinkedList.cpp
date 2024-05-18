@@ -272,7 +272,6 @@ void removeDuplicates(Node*& head) {
         return;
     }
 
-    // Approach 1
     Node* temp = head;
     while (temp != nullptr && temp->next != nullptr) {
         if (temp->data == temp->next->data) {
@@ -353,6 +352,7 @@ Node* mergeLists(Node*& l1, Node*& l2) {
             l1 = l1->next;
             last->next = nullptr;
         }
+
         else {
             last->next = l2;
             last = l2;
@@ -362,11 +362,10 @@ Node* mergeLists(Node*& l1, Node*& l2) {
     }
 
     if (l1 != nullptr) {
-        last->next = l1;
+        last = l1;
     }
     else {
-        last->next = l2;
-
+        last = l2;
     }
 
     return third;
@@ -389,6 +388,25 @@ Node* mergeListsR(Node*& l1, Node*& l2) {
     }
 }
 
+bool hasLoop(Node*& head) {
+    Node* p1, * p2;
+
+    p1 = p2 = head;
+
+    do {
+        p1 = p1->next;
+        p2 = p2->next;
+        p2 = p2 != nullptr ? p2->next : nullptr;
+    } while (p1 && p2 && (p1 != p2));
+
+    if (p1 == p2) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 int main() {
     Node* ll1 = nullptr;
     insertAtTail(ll1, 2);
@@ -396,22 +414,36 @@ int main() {
     insertAtTail(ll1, 10);
     insertAtTail(ll1, 15);
 
-    Node* ll2 = nullptr;
-    insertAtTail(ll2, 4);
-    insertAtTail(ll2, 7);
-    insertAtTail(ll2, 12);
-    insertAtTail(ll2, 14);
-    // std::cout << countNodes(node) << std::endl;
-    // std::cout << sumOfNodes(node) << std::endl;
-    // std::cout << maxOfNodes(node) << std::endl;
-    // std::cout << minOfNodes(node) << std::endl;
-    // insertAtPosition(node, 5, 7);
-    // insertAtPosition(node, 0, 8);
-    // insertInSortedPosition(node, 3);
-    // insertInSortedPosition(node, 2);
-    // deleteNode(node, 2);
-    ll1 = mergeLists(ll1, ll2);
-    recursiveDisplay(ll1);
+    // Node* ll2 = nullptr;
+    // insertAtTail(ll2, 4);
+    // insertAtTail(ll2, 7);
+    // insertAtTail(ll2, 12);
+    // insertAtTail(ll2, 14);
+    // // std::cout << countNodes(node) << std::endl;
+    // // std::cout << sumOfNodes(node) << std::endl;
+    // // std::cout << maxOfNodes(node) << std::endl;
+    // // std::cout << minOfNodes(node) << std::endl;
+    // // insertAtPosition(node, 5, 7);
+    // // insertAtPosition(node, 0, 8);
+    // // insertInSortedPosition(node, 3);
+    // // insertInSortedPosition(node, 2);
+    // // deleteNode(node, 2);
+    // ll1 = mergeLists(ll1, ll2);
+    // recursiveDisplay(ll1);
     // std::cout << isSorted(node) << std::endl;
 
+    // Forming a Loop in LL
+    Node* p1, * p2;
+
+    // Point p1 to 3rd Node
+    p1 = ll1->next->next;
+
+    // Point p2 to last Node
+    p2 = ll1->next->next->next;
+
+    // Point p2(last Node) to 3rd loop to Form a loop
+    p2->next = p1;
+
+    // Check for loop
+    std::cout << hasLoop(ll1);
 }
