@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 
 class Node {
 public:
@@ -407,13 +408,92 @@ bool hasLoop(Node*& head) {
     }
 }
 
+Node* middleNode(Node*& head) {
+    if (head == nullptr) return nullptr;
+
+    Node* slow = head;
+    Node* fast = head;
+
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
+}
+
+Node* intersectingPoint(Node*& l1, Node*& l2) {
+    std::stack<Node*> addressStackL1;
+    std::stack<Node*> addressStackL2;
+
+    Node* temp1 = l1;
+    while (temp1 != nullptr) {
+        addressStackL1.push(temp1);
+        temp1 = temp1->next;
+    }
+
+    Node* temp2 = l2;
+    while (temp2 != nullptr) {
+        addressStackL2.push(temp2);
+        temp2 = temp2->next;
+    }
+
+    Node* recentPoped;
+    while (!addressStackL1.empty() && !addressStackL2.empty() && addressStackL1.top() == addressStackL2.top()) {
+        recentPoped = addressStackL1.top();
+        addressStackL1.pop();
+        addressStackL2.pop();
+
+    }
+
+    return recentPoped;
+}
+
+
+
 int main() {
+    // Creating the first list
     Node* ll1 = nullptr;
     insertAtTail(ll1, 2);
+    insertAtTail(ll1, 4);
+    insertAtTail(ll1, 6);
+    insertAtTail(ll1, 7);
     insertAtTail(ll1, 8);
-    insertAtTail(ll1, 10);
-    insertAtTail(ll1, 15);
+    insertAtTail(ll1, 9);
 
+    // Creating the second list
+    Node* ll2 = nullptr;
+    insertAtTail(ll2, 1);
+    insertAtTail(ll2, 3);
+    insertAtTail(ll2, 5);
+
+    // Creating intersection (ll2 intersects with ll1 at node with value 11)
+    Node* temp1 = ll1;
+    while (temp1 && temp1->data != 7) {
+        temp1 = temp1->next;
+    }
+
+    if (temp1) {
+        Node* temp2 = ll2;
+        while (temp2->next) {
+            temp2 = temp2->next;
+        }
+        temp2->next = temp1;
+    }
+
+    display(ll1);
+    std::cout << std::endl;
+    display(ll2);
+    std::cout << std::endl;
+    Node* intersection = intersectingPoint(ll1, ll2);
+    if (intersection) {
+        std::cout << "Intersection at node with value: " << intersection->data << std::endl;
+    }
+    else {
+        std::cout << "No intersection" << std::endl;
+    }
+
+    // std::cout << middleNode(ll1)->data;
     // Node* ll2 = nullptr;
     // insertAtTail(ll2, 4);
     // insertAtTail(ll2, 7);
@@ -432,18 +512,18 @@ int main() {
     // recursiveDisplay(ll1);
     // std::cout << isSorted(node) << std::endl;
 
-    // Forming a Loop in LL
-    Node* p1, * p2;
+    // // Forming a Loop in LL
+    // Node* p1, * p2;
 
-    // Point p1 to 3rd Node
-    p1 = ll1->next->next;
+    // // Point p1 to 3rd Node
+    // p1 = ll1->next->next;
 
-    // Point p2 to last Node
-    p2 = ll1->next->next->next;
+    // // Point p2 to last Node
+    // p2 = ll1->next->next->next;
 
-    // Point p2(last Node) to 3rd loop to Form a loop
-    p2->next = p1;
+    // // Point p2(last Node) to 3rd loop to Form a loop
+    // p2->next = p1;
 
-    // Check for loop
-    std::cout << hasLoop(ll1);
+    // // Check for loop
+    // std::cout << hasLoop(ll1);
 }
