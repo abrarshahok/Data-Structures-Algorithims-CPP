@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <vector>
 
 class Node {
 public:
@@ -450,48 +451,62 @@ Node* intersectingPoint(Node*& l1, Node*& l2) {
 }
 
 
+Node* mergeKLists(std::vector<Node*>& lists) {
+    if (lists.size() == 0) return nullptr;
+
+    Node* first = lists[0];
+
+    for (int i = 1; i < lists.size(); i++) {
+        first = mergeListsR(first, lists[i]);
+    }
+
+    return first;
+}
+
+
+
 
 int main() {
-    // Creating the first list
-    Node* ll1 = nullptr;
-    insertAtTail(ll1, 2);
-    insertAtTail(ll1, 4);
-    insertAtTail(ll1, 6);
-    insertAtTail(ll1, 7);
-    insertAtTail(ll1, 8);
-    insertAtTail(ll1, 9);
+    // // Creating the first list
+    // Node* ll1 = nullptr;
+    // insertAtTail(ll1, 2);
+    // insertAtTail(ll1, 4);
+    // insertAtTail(ll1, 6);
+    // insertAtTail(ll1, 7);
+    // insertAtTail(ll1, 8);
+    // insertAtTail(ll1, 9);
 
-    // Creating the second list
-    Node* ll2 = nullptr;
-    insertAtTail(ll2, 1);
-    insertAtTail(ll2, 3);
-    insertAtTail(ll2, 5);
+    // // Creating the second list
+    // Node* ll2 = nullptr;
+    // insertAtTail(ll2, 1);
+    // insertAtTail(ll2, 3);
+    // insertAtTail(ll2, 5);
 
-    // Creating intersection (ll2 intersects with ll1 at node with value 11)
-    Node* temp1 = ll1;
-    while (temp1 && temp1->data != 7) {
-        temp1 = temp1->next;
-    }
+    // // Creating intersection (ll2 intersects with ll1 at node with value 11)
+    // Node* temp1 = ll1;
+    // while (temp1 && temp1->data != 7) {
+    //     temp1 = temp1->next;
+    // }
 
-    if (temp1) {
-        Node* temp2 = ll2;
-        while (temp2->next) {
-            temp2 = temp2->next;
-        }
-        temp2->next = temp1;
-    }
+    // if (temp1) {
+    //     Node* temp2 = ll2;
+    //     while (temp2->next) {
+    //         temp2 = temp2->next;
+    //     }
+    //     temp2->next = temp1;
+    // }
 
-    display(ll1);
-    std::cout << std::endl;
-    display(ll2);
-    std::cout << std::endl;
-    Node* intersection = intersectingPoint(ll1, ll2);
-    if (intersection) {
-        std::cout << "Intersection at node with value: " << intersection->data << std::endl;
-    }
-    else {
-        std::cout << "No intersection" << std::endl;
-    }
+    // display(ll1);
+    // std::cout << std::endl;
+    // display(ll2);
+    // std::cout << std::endl;
+    // Node* intersection = intersectingPoint(ll1, ll2);
+    // if (intersection) {
+    //     std::cout << "Intersection at node with value: " << intersection->data << std::endl;
+    // }
+    // else {
+    //     std::cout << "No intersection" << std::endl;
+    // }
 
     // std::cout << middleNode(ll1)->data;
     // Node* ll2 = nullptr;
@@ -526,4 +541,28 @@ int main() {
 
     // // Check for loop
     // std::cout << hasLoop(ll1);
+
+    Node* ll1 = nullptr;
+    insertAtTail(ll1, 2);
+    insertAtTail(ll1, 4);
+    insertAtTail(ll1, 6);
+
+    Node* ll2 = nullptr;
+    insertAtTail(ll2, 1);
+    insertAtTail(ll2, 3);
+    insertAtTail(ll2, 5);
+
+    Node* ll3 = nullptr;
+    insertAtTail(ll3, 8);
+    insertAtTail(ll3, 10);
+    insertAtTail(ll3, 12);
+
+    Node* ll4 = nullptr;
+    insertAtTail(ll4, 7);
+    insertAtTail(ll4, 9);
+    insertAtTail(ll4, 11);
+
+    std::vector<Node*> lists = { ll1, ll2, ll3, ll4 };
+    Node* finalList = mergeKLists(lists);
+    display(finalList);
 }
