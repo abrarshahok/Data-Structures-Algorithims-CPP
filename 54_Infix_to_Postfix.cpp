@@ -73,8 +73,8 @@ std::string infixToPostix(std::string str) {
     return postfix;
 }
 
-int main() {
-    std::string str = "K+L-M*N+(O^P)*W/U/V*T+Q";
-    std::string postfix = infixToPostix(str);
-    std::cout << postfix << std::endl;
-}
+// int main() {
+//     std::string str = "K+L-M*N+(O^P)*W/U/V*T+Q";
+//     std::string postfix = infixToPostix(str);
+//     std::cout << postfix << std::endl;
+// }

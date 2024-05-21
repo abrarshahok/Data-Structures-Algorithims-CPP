@@ -17,11 +17,6 @@ public:
 
     StackLLADT() :top(nullptr) {}
 
-    ~StackLLADT() {
-        top = nullptr;
-        delete top;
-    }
-
     void push(T x) {
         Node<T>* newNode = new Node(x);
         newNode->next = top;
