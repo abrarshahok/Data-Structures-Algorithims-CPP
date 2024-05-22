@@ -9,46 +9,36 @@ public:
 
     CircularQueue(int size) {
         this->size = size;
-        front = rear = -1;
+        front = rear = 0;
         this->Q = new int[size];
     }
 
     void enqueue(int x) {
-        if (rear == size - 1) {
+        if ((rear + 1) % size == front) {
             std::cout << "Queue Full" << std::endl;
-            return;
-        }
-
-        if (front == -1 && rear == -1) {
-            front = rear = 0;
-            Q[rear] = x;
         }
         else {
-            rear++;
+            rear = (rear + 1) % size;
             Q[rear] = x;
         }
     }
 
     void dequeue() {
-        if (front > rear) {
-            std::cout << "Queue Empty" << std::endl;
-            return;
-        }
-
         if (front == rear) {
-            front = rear = -1;
+            std::cout << "Queue Empty" << std::endl;
         }
         else {
-            front++;
+            front = (front + 1) % size;
         }
     }
 
     void display() {
-        if (rear == -1 && front == -1) return;
+        int i = front + 1;
 
-        for (int i = front; i <= rear; i++) {
+        do {
             std::cout << Q[i] << " ";
-        }
+            i = (i + 1) % size;
+        } while (i != (rear + 1) % size);
 
         std::cout << std::endl;
     }
@@ -56,12 +46,12 @@ public:
 };
 
 int main() {
-    CircularQueue q = CircularQueue(5);
+    CircularQueue q = CircularQueue(6);
     q.enqueue(1);
     q.enqueue(2);
     q.enqueue(3);
     q.enqueue(4);
     q.enqueue(5);
-
+    q.enqueue(6);
     q.display();
 }
