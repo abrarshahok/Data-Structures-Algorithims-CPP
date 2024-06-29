@@ -30,6 +30,8 @@
 
 // Representation of a binary tree using linked list
 #include<iostream>
+#include<queue>
+#include<vector>
 
 class Node {
 public:
@@ -44,41 +46,76 @@ public:
     }
 };
 
-void inorder(Node*& bt) {
-    if (bt == nullptr) return;
-    inorder(bt->left);
-    std::cout << bt->data << " ";
-    inorder(bt->right);
+void inorder(Node*& root) {
+    if (root == nullptr) return;
+    inorder(root->left);
+    std::cout << root->data << " ";
+    inorder(root->right);
 
 }
 
-void preorder(Node*& bt) {
-    if (bt == nullptr) return;
-    std::cout << bt->data << " ";
-    preorder(bt->left);
-    preorder(bt->right);
+void preorder(Node*& root) {
+    if (root == nullptr) return;
+    std::cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
 
 }
 
-void postorder(Node*& bt) {
-    if (bt == nullptr) return;
-    postorder(bt->left);
-    postorder(bt->right);
-    std::cout << bt->data << " ";
+void postorder(Node*& root) {
+    if (root == nullptr) return;
+    postorder(root->left);
+    postorder(root->right);
+    std::cout << root->data << " ";
+}
+
+std::vector< std::vector<char> > levelorder(Node*& root) {
+    std::vector< std::vector<char> > result;
+    if (!root) return result;
+
+    std::queue<Node*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int levelSize = q.size();
+        std::vector<char> currentLevelElements;
+
+        for (int i = 0; i < levelSize; i++) {
+            Node* node = q.front();
+            q.pop();
+            currentLevelElements.push_back(node->data);
+
+            if (node->left) q.push(node->left);
+            if (node->right) q.push(node->right);
+        }
+
+        result.push_back(currentLevelElements);
+    }
+
+    return result;
 }
 
 int main() {
-    Node* bt = new Node('A');
-    bt->left = new Node('B');
-    bt->right = new Node('C');
-    bt->left->left = new Node('D');
-    bt->left->right = new Node('E');
-    bt->right->left = new Node('F');
-    bt->right->right = new Node('G');
-    preorder(bt);
+    Node* root = new Node('A');
+    root->left = new Node('B');
+    root->right = new Node('C');
+    root->left->left = new Node('D');
+    root->left->right = new Node('E');
+    root->right->left = new Node('F');
+    root->right->right = new Node('G');
+    preorder(root);
     std::cout << std::endl;
-    inorder(bt);
+    inorder(root);
     std::cout << std::endl;
-    postorder(bt);
+    postorder(root);
     std::cout << std::endl;
+
+    std::vector< std::vector<char> > result = levelorder(root);
+    for (int i = 0; i < result.size(); i++) {
+        std::vector<char> level = result[i];
+        for (int i = 0; i < level.size(); i++) {
+            std::cout << level[i] << " ";
+        }
+        std::cout << std::endl;
+    }
 }
