@@ -95,6 +95,23 @@ std::vector< std::vector<char> > levelorder(Node*& root) {
     return result;
 }
 
+int count(Node*& root) {
+    if (!root) return 0;
+
+    return count(root->left) + count(root->right) + 1;
+}
+
+int height(Node*& root) {
+    int x = 0, y = 0;
+
+    if (!root) return 0;
+
+    x = height(root->left);
+    y = height(root->right);
+
+    return x > y ? x + 1 : y + 1;
+}
+
 int main() {
     Node* root = new Node('A');
     root->left = new Node('B');
@@ -109,6 +126,9 @@ int main() {
     std::cout << std::endl;
     postorder(root);
     std::cout << std::endl;
+
+    std::cout << count(root) << std::endl;
+    std::cout << height(root) << std::endl;
 
     std::vector< std::vector<char> > result = levelorder(root);
     for (int i = 0; i < result.size(); i++) {
