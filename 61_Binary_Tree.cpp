@@ -101,6 +101,26 @@ int count(Node*& root) {
     return count(root->left) + count(root->right) + 1;
 }
 
+int countLeafs(Node*& root) {
+    if (!root) return 0;
+
+    if (!root->left && !root->right) {
+        return 1;
+    }
+
+    return countLeafs(root->left) + countLeafs(root->right);
+}
+
+int countNonLeafs(Node*& root) {
+    if (!root) return 0;
+
+    if (!root->left && !root->right) {
+        return 0;
+    }
+
+    return countNonLeafs(root->left) + countNonLeafs(root->right) + 1;
+}
+
 int height(Node*& root) {
     int x = 0, y = 0;
 
@@ -129,6 +149,8 @@ int main() {
 
     std::cout << count(root) << std::endl;
     std::cout << height(root) << std::endl;
+    std::cout << countLeafs(root) << std::endl;
+    std::cout << countNonLeafs(root) << std::endl;
 
     std::vector< std::vector<char> > result = levelorder(root);
     for (int i = 0; i < result.size(); i++) {
