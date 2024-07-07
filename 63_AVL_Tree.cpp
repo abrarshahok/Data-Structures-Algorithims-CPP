@@ -62,18 +62,22 @@ private:
     }
 
     Node* _inPre(Node* node) {
-        while (node && node->right != nullptr) {
-            node = node->left;
-        }
-        return node;
+    if (node == nullptr) return nullptr;
+    node = node->left;
+    while (node && node->right != nullptr) {
+        node = node->right;
     }
+    return node;
+}
 
-    Node* _inSucc(Node* node) {
-        while (node && node->left != nullptr) {
-            node = node->right;
-        }
-        return node;
+Node* _inSucc(Node* node) {
+    if (node == nullptr) return nullptr;
+    node = node->right;
+    while (node && node->left != nullptr) {
+        node = node->left;
     }
+    return node;
+}
 
     void _performRotations(Node*& node) {
         node->height = _nodeHeight(node);
@@ -136,16 +140,18 @@ private:
         else {
             if (_nodeHeight(node->left) > _nodeHeight(node->right))
             {
-                Node* pre = _inPre(node->left);
+                Node* pre = _inPre(node);
                 node->data = pre->data;
                 _deleteNode(pre->data, node->left);
             }
             else {
-                Node* succ = _inSucc(node->right);
+                Node* succ = _inSucc(node);
                 node->data = succ->data;
                 _deleteNode(succ->data, node->right);
             }
         }
+
+if(node == nullptr) return; 
 
         _performRotations(node);
     }
