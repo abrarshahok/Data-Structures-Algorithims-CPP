@@ -463,9 +463,6 @@ Node* mergeKLists(std::vector<Node*>& lists) {
     return first;
 }
 
-
-
-
 int main() {
     // // Creating the first list
     // Node* ll1 = nullptr;
@@ -543,26 +540,29 @@ int main() {
     // std::cout << hasLoop(ll1);
 
     Node* ll1 = nullptr;
+    insertAtTail(ll1, 1);
     insertAtTail(ll1, 2);
+    insertAtTail(ll1, 3);
     insertAtTail(ll1, 4);
+    insertAtTail(ll1, 5);
     insertAtTail(ll1, 6);
+    display(ll1);
+    // Node* ll2 = nullptr;
+    // insertAtTail(ll2, 4);
+    // insertAtTail(ll2, 5);
+    // insertAtTail(ll2, 6);
 
-    Node* ll2 = nullptr;
-    insertAtTail(ll2, 1);
-    insertAtTail(ll2, 3);
-    insertAtTail(ll2, 5);
+    // Node* ll3 = nullptr;
+    // insertAtTail(ll3, 8);
+    // insertAtTail(ll3, 10);
+    // insertAtTail(ll3, 12);
 
-    Node* ll3 = nullptr;
-    insertAtTail(ll3, 8);
-    insertAtTail(ll3, 10);
-    insertAtTail(ll3, 12);
+    // Node* ll4 = nullptr;
+    // insertAtTail(ll4, 7);
+    // insertAtTail(ll4, 9);
+    // insertAtTail(ll4, 11);
 
-    Node* ll4 = nullptr;
-    insertAtTail(ll4, 7);
-    insertAtTail(ll4, 9);
-    insertAtTail(ll4, 11);
-
-    std::vector<Node*> lists = { ll1, ll2, ll3, ll4 };
-    Node* finalList = mergeKLists(lists);
-    display(finalList);
+    // std::vector<Node*> lists = { ll1, ll2, ll3, ll4 };
+    // Node* finalList = mergeKLists(lists);
+    // display(finalList);
 }
