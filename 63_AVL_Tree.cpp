@@ -80,8 +80,6 @@ private:
     }
 
     void _performRotations(Node*& node) {
-        node->height = _nodeHeight(node);
-
         int balance = _balanceFactor(node);
 
         if (balance > 1) {
@@ -118,6 +116,8 @@ private:
             return;
         }
 
+        node->height = _nodeHeight(node);
+
         _performRotations(node);
     }
 
@@ -125,9 +125,9 @@ private:
 
         if (node == nullptr) return;
 
-        if (!(node->left && node->right)) {
+        if (!node->left && !node->right) {
             node = nullptr;
-            delete(node);
+            delete node;
             return;
         }
 
@@ -152,6 +152,8 @@ private:
         }
 
         if (node == nullptr) return;
+
+        node->height = _nodeHeight(node);
 
         _performRotations(node);
     }
@@ -179,6 +181,7 @@ private:
         else {
             return _search(key, node->right);
         }
+
     }
 
     Node* _root;
@@ -219,11 +222,9 @@ int main() {
 
     tree.inorder();
 
-    cout << tree.getRoot()->data << endl;
-    tree.deleteNode(40);
-    cout << tree.getRoot()->data << endl;
+    tree.deleteNode(30);
 
-    cout << tree.search(40);
+    tree.inorder();
 
     return 0;
 }
