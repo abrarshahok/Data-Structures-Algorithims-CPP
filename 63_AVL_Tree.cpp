@@ -179,7 +179,6 @@ private:
         else {
             return _search(key, node->right);
         }
-
     }
 
     Node* _root;
