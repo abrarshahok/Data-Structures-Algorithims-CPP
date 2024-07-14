@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <stack>
 using namespace std;
 
 class Node {
@@ -160,11 +161,29 @@ private:
         _performRotations(node);
     }
 
-    void _inorderTraversal(Node*& node) {
+    void _inorderTraversalR(Node*& node) {
         if (node != nullptr) {
-            _inorderTraversal(node->left);
+            _inorderTraversalR(node->left);
             cout << node->data << " ";
-            _inorderTraversal(node->right);
+            _inorderTraversalR(node->right);
+        }
+    }
+
+    void _inorderTraversalI(Node*& node) {
+        if (!node) return;
+        stack<Node*> st;
+        Node* curr = node;
+
+        while (curr || !st.empty()) {
+            while (curr) {
+                st.push(curr);
+                curr = curr->left;
+            }
+
+            curr = st.top();
+            st.pop();
+            cout << curr->data << " ";
+            curr = curr->right;
         }
     }
 
@@ -235,7 +254,7 @@ public:
     }
 
     void inorder() {
-        _inorderTraversal(_root);
+        _inorderTraversalI(_root);
         cout << endl;
     }
 
@@ -263,7 +282,7 @@ int main() {
     tree.insert(10);
 
     tree.inorder();
-    tree.levelOrder();
+    // tree.levelOrder();
 
     return 0;
 }
