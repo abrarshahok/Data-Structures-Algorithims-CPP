@@ -1,4 +1,6 @@
 #include <iostream>
+#include <queue>
+#include <vector>
 using namespace std;
 
 class Node {
@@ -166,6 +168,33 @@ private:
         }
     }
 
+    vector< vector<int> > _levelOrder(Node* node) {
+        vector< vector<int> > res;
+        queue<Node*> q;
+        q.push(node);
+
+        while (!q.empty()) {
+            int qLen = q.size();
+            vector<int> currentLevel;
+
+            for (int i = 0; i < qLen; i++) {
+                Node* curr = q.front();
+                q.pop();
+                if (curr) {
+                    currentLevel.push_back(curr->data);
+                    if (curr->right) q.push(curr->right);
+                    if (curr->left) q.push(curr->left);
+                }
+            }
+
+            if (!currentLevel.empty()) {
+                res.push_back(currentLevel);
+            }
+        }
+
+        return res;
+    }
+
     Node* _search(int key, Node*& node) {
         if (node == nullptr) {
             return nullptr;
@@ -210,6 +239,18 @@ public:
         cout << endl;
     }
 
+    void levelOrder() {
+        vector< vector<int> > res = _levelOrder(_root);
+
+        for (int i = 0; i < res.size(); i++) {
+            vector<int> data = res[i];
+            for (int j = 0; j < data.size(); j++) {
+                cout << data[j] << " ";
+            }
+            cout << endl;
+        }
+    }
+
 };
 
 int main() {
@@ -217,14 +258,12 @@ int main() {
 
     tree.insert(30);
     tree.insert(40);
+    tree.insert(35);
     tree.insert(20);
     tree.insert(10);
 
     tree.inorder();
-
-    tree.deleteNode(30);
-
-    tree.inorder();
+    tree.levelOrder();
 
     return 0;
 }
