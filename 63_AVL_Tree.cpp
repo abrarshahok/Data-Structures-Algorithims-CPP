@@ -201,8 +201,8 @@ private:
                 q.pop();
                 if (curr) {
                     currentLevel.push_back(curr->data);
-                    if (curr->right) q.push(curr->right);
                     if (curr->left) q.push(curr->left);
+                    if (curr->right) q.push(curr->right);
                 }
             }
 
